@@ -1,0 +1,39 @@
+{
+  "name": "cheeseburger-menu",
+  "version": "0.0.1",
+  "description": "A simple sliding side menu component for React",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/jest",
+    "transpile": "node ./node_modules/.bin/babel es6 --out-dir ."
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "hamburger",
+    "menu"
+  ],
+  "author": "Eddie McLean <middlerun@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Middlerun/cheeseburger-menu.git"
+  },
+  "peerDependencies": {
+    "react": "0.14.5 || ^15.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "enzyme": "^2.7.1",
+    "enzyme-to-json": "^1.5.0",
+    "jest": "^19.0.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "dependencies": {
+    "react-easy-swipe": "0.0.8"
+  }
+}
