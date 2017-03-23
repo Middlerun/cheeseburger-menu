@@ -19,10 +19,9 @@ import CheeseburgerMenu from 'cheeseburger-menu'
 
 <CheeseburgerMenu isOpen={this.state.menuIsOpen} closeCallback={this.closeMenu}>
   <div className="my-menu-content">
-    My menu!
     <ul>
-      <li>Menu item 1</li>
-      <li>Menu item 2</li>
+      <li><Link to="/thing1" onClick={this.closeMenu}>Menu item 1<Link></li>
+      <li><Link to="/thing2" onClick={this.closeMenu}>Menu item 2<Link></li>
     <ul>
   </div>
 </CheeseburgerMenu>
