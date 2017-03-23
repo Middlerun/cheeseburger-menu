@@ -16,16 +16,18 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const emptyFunc = () => null;
+var emptyFunc = function emptyFunc() {
+  return null;
+};
 
-describe('<CheeseburgerMenu/>', () => {
-  it('matches snapshot when closed', () => {
-    const closedMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: false, closeCallback: emptyFunc }));
+describe('<CheeseburgerMenu/>', function () {
+  it('matches snapshot when closed', function () {
+    var closedMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: false, closeCallback: emptyFunc }));
     expect((0, _enzymeToJson2.default)(closedMenu)).toMatchSnapshot();
   });
 
-  it('matches snapshot when open', () => {
-    const openMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: true, closeCallback: emptyFunc }));
+  it('matches snapshot when open', function () {
+    var openMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: true, closeCallback: emptyFunc }));
     expect((0, _enzymeToJson2.default)(openMenu)).toMatchSnapshot();
   });
 });

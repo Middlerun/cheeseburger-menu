@@ -26,7 +26,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-let CheeseburgerMenu = function (_Component) {
+var CheeseburgerMenu = function (_Component) {
   _inherits(CheeseburgerMenu, _Component);
 
   function CheeseburgerMenu() {
@@ -55,14 +55,14 @@ let CheeseburgerMenu = function (_Component) {
     key: 'onSwipeMove',
     value: function onSwipeMove(position, event) {
       if (this.state.swiping) {
-        const snapOpenThreshold = this.options.width / 15;
-        const pastThreshold = !this.props.right && position.x < -snapOpenThreshold || this.props.right && position.x > snapOpenThreshold;
-        const translateX = pastThreshold ? position.x : 0;
+        var snapOpenThreshold = this.options.width / 15;
+        var pastThreshold = !this.props.right && position.x < -snapOpenThreshold || this.props.right && position.x > snapOpenThreshold;
+        var translateX = pastThreshold ? position.x : 0;
 
         this.setState(_extends({}, this.state, {
           swipePosition: position,
           menuExtraStyle: {
-            transform: `translate3d(${translateX}px, 0px, 0px)`,
+            transform: 'translate3d(' + translateX + 'px, 0px, 0px)',
             transition: 'transform 0s'
           }
         }));
@@ -71,7 +71,7 @@ let CheeseburgerMenu = function (_Component) {
   }, {
     key: 'onSwipeEnd',
     value: function onSwipeEnd(event) {
-      const swipeCloseThreshold = this.options.width / 3;
+      var swipeCloseThreshold = this.options.width / 3;
       if (!this.props.right && this.state.swipePosition.x < -swipeCloseThreshold || this.props.right && this.state.swipePosition.x > swipeCloseThreshold) {
         this.props.closeCallback();
       }
@@ -96,8 +96,8 @@ let CheeseburgerMenu = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      const baseMenuOuterStyle = this.props.isOpen ? (0, _styles.menuOuterActiveStyle)(this.options) : (0, _styles.menuOuterStyle)(this.options);
-      const currentMenuOuterStyle = _extends({}, baseMenuOuterStyle, this.state.menuExtraStyle);
+      var baseMenuOuterStyle = this.props.isOpen ? (0, _styles.menuOuterActiveStyle)(this.options) : (0, _styles.menuOuterStyle)(this.options);
+      var currentMenuOuterStyle = _extends({}, baseMenuOuterStyle, this.state.menuExtraStyle);
 
       return _react2.default.createElement(
         'div',
