@@ -20,9 +20,9 @@ import CheeseburgerMenu from 'cheeseburger-menu'
 <CheeseburgerMenu isOpen={this.state.menuIsOpen} closeCallback={this.closeMenu}>
   <div className="my-menu-content">
     <ul>
-      <li><Link to="/thing1" onClick={this.closeMenu}>Menu item 1<Link></li>
-      <li><Link to="/thing2" onClick={this.closeMenu}>Menu item 2<Link></li>
-    <ul>
+      <li><Link to="/thing1" onClick={this.closeMenu}>Menu item 1</Link></li>
+      <li><Link to="/thing2" onClick={this.closeMenu}>Menu item 2</Link></li>
+    </ul>
   </div>
 </CheeseburgerMenu>
 ```
