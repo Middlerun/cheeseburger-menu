@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/.bin/jest",
-    "transpile": "node ./node_modules/.bin/babel es6 --out-dir .",
+    "transpile": "node ./node_modules/.bin/babel es6 --out-dir dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
