@@ -46,7 +46,7 @@ var menuOuterStyle = function menuOuterStyle(options) {
 
 var menuOuterActiveStyle = function menuOuterActiveStyle(options) {
   return _extends({}, menuOuterStyle(options), {
-    transform: "none",
+    transform: "translate3d(0px, 0px, 0px)",
     boxShadow: options.showShadow ? "0 0 15px 0 rgba(0, 0, 0, .2)" : "none"
   });
 };
