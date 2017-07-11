@@ -4,6 +4,10 @@ A simple sliding side menu component for React.
 
 This component provides the sliding menu only, not the hamburger button. For your button I'd suggest [react-hamburger-menu](https://github.com/cameronbourke/react-hamburger-menu).
 
+## Demo
+
+https://codesandbox.io/s/qxL744Qx2
+
 ## Usage
 
 Cheeseburger Menu has two required props, `isOpen` and `closeCallback`, plus a number of optional props described below. Your content should go inside as child components.
