@@ -1,7 +1,15 @@
 import React, {Component} from 'react'
 import Swipe from 'react-easy-swipe'
 
-import {overlayStyle, overlayActiveStyle, menuOuterStyle, menuOuterActiveStyle, menuInnerStyle} from './styles'
+import {
+  overlayStyle,
+  overlayActiveStyle,
+  menuOuterStyle,
+  menuOuterActiveStyle,
+  menuShadowStyle,
+  menuShadowActiveStyle,
+  menuInnerStyle
+} from './styles'
 
 class CheeseburgerMenu extends Component {
   constructor() {
@@ -75,7 +83,7 @@ class CheeseburgerMenu extends Component {
       <div className={"cheeseburger-menu" + (this.props.isOpen ? " open" : "")}>
         <div className="cheeseburger-menu-overlay"
              style={this.props.isOpen ? overlayActiveStyle(this.options) : overlayStyle(this.options)}
-             onClick={this.props.closeCallback}></div>
+             onClick={this.props.closeCallback}/>
 
         <Swipe onSwipeStart={this.onSwipeStart.bind(this)}
                onSwipeMove={this.onSwipeMove.bind(this)}
@@ -84,6 +92,8 @@ class CheeseburgerMenu extends Component {
             <div className="cheeseburger-menu-inner" style={menuInnerStyle(this.options)}>
               {this.props.children}
             </div>
+            <div className="cheeseburger-menu-shadow"
+                 style={this.props.isOpen ? menuShadowActiveStyle(this.options) : menuShadowStyle(this.options)}/>
           </div>
         </Swipe>
       </div>

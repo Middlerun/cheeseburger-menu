@@ -26,7 +26,7 @@ const menuOuterStyle = (options) => ({
   width: options.width,
   maxWidth: "80%",
   height: "100%",
-  transition: `all ${options.transitionTime}s`,
+  transition: `transform ${options.transitionTime}s`,
   transform: (options.isLeft ? "translate3d(-100%, 0px, 0px)" : "translate3d(100%, 0px, 0px)"),
   backgroundColor: options.backgroundColor,
 })
@@ -34,7 +34,25 @@ const menuOuterStyle = (options) => ({
 const menuOuterActiveStyle = (options) => ({
   ...menuOuterStyle(options),
   transform: "translate3d(0px, 0px, 0px)",
+})
+
+const menuShadowStyle = (options) => ({
+  position: 'absolute',
+  zIndex: -1,
+  width: '100%',
+  height: '100%',
+  transition: `opacity ${options.transitionTime}s`,
   boxShadow: (options.showShadow ? "0 0 15px 0 rgba(0, 0, 0, .2)" : "none"),
+  opacity: 0,
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+})
+
+const menuShadowActiveStyle = (options) => ({
+  ...menuShadowStyle(options),
+  opacity: 1,
 })
 
 const menuInnerStyle = (options) => ({
@@ -43,4 +61,4 @@ const menuInnerStyle = (options) => ({
   overflowY: "auto",
 })
 
-export {overlayStyle, overlayActiveStyle, menuOuterStyle, menuOuterActiveStyle, menuInnerStyle}
+export {overlayStyle, overlayActiveStyle, menuOuterStyle, menuOuterActiveStyle, menuShadowStyle, menuShadowActiveStyle, menuInnerStyle}

@@ -117,7 +117,9 @@ var CheeseburgerMenu = function (_Component) {
               'div',
               { className: 'cheeseburger-menu-inner', style: (0, _styles.menuInnerStyle)(this.options) },
               this.props.children
-            )
+            ),
+            _react2.default.createElement('div', { className: 'cheeseburger-menu-shadow',
+              style: this.props.isOpen ? (0, _styles.menuShadowActiveStyle)(this.options) : (0, _styles.menuShadowStyle)(this.options) })
           )
         )
       );

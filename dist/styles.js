@@ -38,7 +38,7 @@ var menuOuterStyle = function menuOuterStyle(options) {
     width: options.width,
     maxWidth: "80%",
     height: "100%",
-    transition: "all " + options.transitionTime + "s",
+    transition: "transform " + options.transitionTime + "s",
     transform: options.isLeft ? "translate3d(-100%, 0px, 0px)" : "translate3d(100%, 0px, 0px)",
     backgroundColor: options.backgroundColor
   };
@@ -46,8 +46,29 @@ var menuOuterStyle = function menuOuterStyle(options) {
 
 var menuOuterActiveStyle = function menuOuterActiveStyle(options) {
   return _extends({}, menuOuterStyle(options), {
-    transform: "translate3d(0px, 0px, 0px)",
-    boxShadow: options.showShadow ? "0 0 15px 0 rgba(0, 0, 0, .2)" : "none"
+    transform: "translate3d(0px, 0px, 0px)"
+  });
+};
+
+var menuShadowStyle = function menuShadowStyle(options) {
+  return {
+    position: 'absolute',
+    zIndex: -1,
+    width: '100%',
+    height: '100%',
+    transition: "opacity " + options.transitionTime + "s",
+    boxShadow: options.showShadow ? "0 0 15px 0 rgba(0, 0, 0, .2)" : "none",
+    opacity: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  };
+};
+
+var menuShadowActiveStyle = function menuShadowActiveStyle(options) {
+  return _extends({}, menuShadowStyle(options), {
+    opacity: 1
   });
 };
 
@@ -63,4 +84,6 @@ exports.overlayStyle = overlayStyle;
 exports.overlayActiveStyle = overlayActiveStyle;
 exports.menuOuterStyle = menuOuterStyle;
 exports.menuOuterActiveStyle = menuOuterActiveStyle;
+exports.menuShadowStyle = menuShadowStyle;
+exports.menuShadowActiveStyle = menuShadowActiveStyle;
 exports.menuInnerStyle = menuInnerStyle;
