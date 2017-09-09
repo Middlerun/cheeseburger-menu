@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactEasySwipe = require('react-easy-swipe');
 
 var _reactEasySwipe2 = _interopRequireDefault(_reactEasySwipe);
@@ -129,15 +133,15 @@ var CheeseburgerMenu = function (_Component) {
   return CheeseburgerMenu;
 }(_react.Component);
 
-CheeseburgerMenu.PropTypes = {
-  isOpen: _react2.default.PropTypes.bool.isRequired,
-  closeCallback: _react2.default.PropTypes.func.isRequired,
-  right: _react2.default.PropTypes.bool,
-  transitionTime: _react2.default.PropTypes.number,
-  topOffset: _react2.default.PropTypes.number,
-  width: _react2.default.PropTypes.number,
-  backgroundColor: _react2.default.PropTypes.string,
-  noShadow: _react2.default.PropTypes.bool
+CheeseburgerMenu.propTypes = {
+  isOpen: _propTypes2.default.bool.isRequired,
+  closeCallback: _propTypes2.default.func.isRequired,
+  right: _propTypes2.default.bool,
+  transitionTime: _propTypes2.default.number,
+  topOffset: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  backgroundColor: _propTypes2.default.string,
+  noShadow: _propTypes2.default.bool
 };
 
 exports.default = CheeseburgerMenu;

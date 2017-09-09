@@ -1,6 +1,7 @@
 import React from 'react'
-import {shallow} from 'enzyme'
-import toJson from 'enzyme-to-json'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
+
+const renderer = new ReactShallowRenderer()
 
 import CheeseburgerMenu from './index'
 
@@ -8,12 +9,12 @@ const emptyFunc = () => null
 
 describe('<CheeseburgerMenu/>', () => {
   it('matches snapshot when closed', () => {
-    const closedMenu = shallow(<CheeseburgerMenu isOpen={false} closeCallback={emptyFunc}/>)
-    expect(toJson(closedMenu)).toMatchSnapshot()
+    const closedMenu = renderer.render(<CheeseburgerMenu isOpen={false} closeCallback={emptyFunc}/>)
+    expect(closedMenu).toMatchSnapshot()
   })
 
   it('matches snapshot when open', () => {
-    const openMenu = shallow(<CheeseburgerMenu isOpen={true} closeCallback={emptyFunc}/>)
-    expect(toJson(openMenu)).toMatchSnapshot()
+    const openMenu = renderer.render(<CheeseburgerMenu isOpen={true} closeCallback={emptyFunc}/>)
+    expect(openMenu).toMatchSnapshot()
   })
 })

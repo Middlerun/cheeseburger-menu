@@ -4,11 +4,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _enzyme = require('enzyme');
+var _shallow = require('react-test-renderer/shallow');
 
-var _enzymeToJson = require('enzyme-to-json');
-
-var _enzymeToJson2 = _interopRequireDefault(_enzymeToJson);
+var _shallow2 = _interopRequireDefault(_shallow);
 
 var _index = require('./index');
 
@@ -16,18 +14,20 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var renderer = new _shallow2.default();
+
 var emptyFunc = function emptyFunc() {
   return null;
 };
 
 describe('<CheeseburgerMenu/>', function () {
   it('matches snapshot when closed', function () {
-    var closedMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: false, closeCallback: emptyFunc }));
-    expect((0, _enzymeToJson2.default)(closedMenu)).toMatchSnapshot();
+    var closedMenu = renderer.render(_react2.default.createElement(_index2.default, { isOpen: false, closeCallback: emptyFunc }));
+    expect(closedMenu).toMatchSnapshot();
   });
 
   it('matches snapshot when open', function () {
-    var openMenu = (0, _enzyme.shallow)(_react2.default.createElement(_index2.default, { isOpen: true, closeCallback: emptyFunc }));
-    expect((0, _enzymeToJson2.default)(openMenu)).toMatchSnapshot();
+    var openMenu = renderer.render(_react2.default.createElement(_index2.default, { isOpen: true, closeCallback: emptyFunc }));
+    expect(openMenu).toMatchSnapshot();
   });
 });

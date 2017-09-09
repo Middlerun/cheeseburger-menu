@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Swipe from 'react-easy-swipe'
 
 import {
@@ -39,7 +40,6 @@ class CheeseburgerMenu extends Component {
       const translateX = (pastThreshold ? position.x : 0)
 
       this.setState({
-        ...this.state,
         swipePosition: position,
         menuExtraStyle: {
           transform: `translate3d(${translateX}px, 0px, 0px)`,
@@ -101,15 +101,15 @@ class CheeseburgerMenu extends Component {
   }
 }
 
-CheeseburgerMenu.PropTypes = {
-  isOpen: React.PropTypes.bool.isRequired,
-  closeCallback: React.PropTypes.func.isRequired,
-  right: React.PropTypes.bool,
-  transitionTime: React.PropTypes.number,
-  topOffset: React.PropTypes.number,
-  width: React.PropTypes.number,
-  backgroundColor: React.PropTypes.string,
-  noShadow: React.PropTypes.bool
+CheeseburgerMenu.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeCallback: PropTypes.func.isRequired,
+  right: PropTypes.bool,
+  transitionTime: PropTypes.number,
+  topOffset: PropTypes.number,
+  width: PropTypes.number,
+  backgroundColor: PropTypes.string,
+  noShadow: PropTypes.bool
 }
 
 export default CheeseburgerMenu
