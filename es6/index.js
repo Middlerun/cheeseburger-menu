@@ -12,40 +12,83 @@ import {
   menuInnerStyle
 } from './styles'
 
+const IDLE = 'idle'
+const VERTICAL = 'vertical'
+const HORIZONTAL = 'horizontal'
+
 class CheeseburgerMenu extends Component {
   constructor() {
     super()
     this.state = {
       swiping: false,
+      direction: IDLE,
       swipePosition: {x: 0, y: 0},
-      menuExtraStyle: {}
+      menuExtraStyle: {},
     }
   }
 
   onSwipeStart(event) {
     if (this.props.isOpen) {
       this.setState({
-        swiping: true
+        swiping: true,
       })
     }
   }
 
   onSwipeMove(position, event) {
     if (this.state.swiping) {
-      const snapOpenThreshold = this.options.width / 15
-      const pastThreshold = (
-        (!this.props.right && position.x < -snapOpenThreshold) ||
-        ( this.props.right && position.x >  snapOpenThreshold)
-      )
-      const translateX = (pastThreshold ? position.x : 0)
+      let direction = this.state.direction
 
-      this.setState({
-        swipePosition: position,
-        menuExtraStyle: {
-          transform: `translate3d(${translateX}px, 0px, 0px)`,
-          transition: 'transform 0s'
+      if (direction === IDLE) {
+        const swipeThreshold = this.options.width / 15
+        const pastThreshold = (
+          (Math.abs(position.x) > swipeThreshold) ||
+          (Math.abs(position.y) > swipeThreshold)
+        )
+
+        if (pastThreshold) {
+          if (
+            (
+              (!this.props.right && position.x < 0) ||
+              ( this.props.right && position.x > 0)
+            ) &&
+            Math.abs(position.x) > Math.abs(position.y)
+          ) {
+            direction = HORIZONTAL
+          }
+          else {
+            direction = VERTICAL
+          }
         }
-      })
+      }
+
+      if (direction === HORIZONTAL) {
+        const swipeClosing = (
+          (!this.props.right && position.x < 0) ||
+          ( this.props.right && position.x > 0)
+        )
+
+        const translateX = (swipeClosing ? position.x : 0)
+
+        this.setState({
+          direction,
+          swipePosition: position,
+          menuExtraStyle: {
+            transform: `translate3d(${translateX}px, 0px, 0px)`,
+            transition: 'transform 0s'
+          },
+        })
+
+        event.preventDefault()
+      }
+
+      if (direction === VERTICAL) {
+        this.setState({
+          direction,
+          swipePosition: {x: 0, y: 0},
+          menuExtraStyle: {},
+        })
+      }
     }
   }
 
@@ -59,6 +102,7 @@ class CheeseburgerMenu extends Component {
     }
     this.setState({
       swiping: false,
+      direction: IDLE,
       swipePosition: {x: 0, y: 0},
       menuExtraStyle: {}
     })

@@ -9,6 +9,11 @@ class MenuContainer extends Component {
     this.state = {
       menuOpen: false,
     }
+
+    this.items = []
+    for (let i=1; i<=100; i++) {
+      this.items.push(i)
+    }
   }
 
   openMenu() {
@@ -24,8 +29,9 @@ class MenuContainer extends Component {
       <CheeseburgerMenu isOpen={this.state.menuOpen} closeCallback={this.closeMenu.bind(this)}>
         <div className="my-menu-content">
           <ul>
-            <li><a href="/thing1">Menu item 1</a></li>
-            <li><a href="/thing2">Menu item 2</a></li>
+            {this.items.map(i => <li key={i}>
+              <a href={'/thing' + i} onClick={e => e.preventDefault()}>Menu item {i}</a>
+              </li>)}
           </ul>
         </div>
       </CheeseburgerMenu>

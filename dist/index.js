@@ -30,6 +30,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var IDLE = 'idle';
+var VERTICAL = 'vertical';
+var HORIZONTAL = 'horizontal';
+
 var CheeseburgerMenu = function (_Component) {
   _inherits(CheeseburgerMenu, _Component);
 
@@ -40,6 +44,7 @@ var CheeseburgerMenu = function (_Component) {
 
     _this.state = {
       swiping: false,
+      direction: IDLE,
       swipePosition: { x: 0, y: 0 },
       menuExtraStyle: {}
     };
@@ -59,17 +64,45 @@ var CheeseburgerMenu = function (_Component) {
     key: 'onSwipeMove',
     value: function onSwipeMove(position, event) {
       if (this.state.swiping) {
-        var snapOpenThreshold = this.options.width / 15;
-        var pastThreshold = !this.props.right && position.x < -snapOpenThreshold || this.props.right && position.x > snapOpenThreshold;
-        var translateX = pastThreshold ? position.x : 0;
+        var direction = this.state.direction;
 
-        this.setState(_extends({}, this.state, {
-          swipePosition: position,
-          menuExtraStyle: {
-            transform: 'translate3d(' + translateX + 'px, 0px, 0px)',
-            transition: 'transform 0s'
+        if (direction === IDLE) {
+          var swipeThreshold = this.options.width / 15;
+          var pastThreshold = Math.abs(position.x) > swipeThreshold || Math.abs(position.y) > swipeThreshold;
+
+          if (pastThreshold) {
+            if ((!this.props.right && position.x < 0 || this.props.right && position.x > 0) && Math.abs(position.x) > Math.abs(position.y)) {
+              direction = HORIZONTAL;
+            } else {
+              direction = VERTICAL;
+            }
           }
-        }));
+        }
+
+        if (direction === HORIZONTAL) {
+          var swipeClosing = !this.props.right && position.x < 0 || this.props.right && position.x > 0;
+
+          var translateX = swipeClosing ? position.x : 0;
+
+          this.setState({
+            direction: direction,
+            swipePosition: position,
+            menuExtraStyle: {
+              transform: 'translate3d(' + translateX + 'px, 0px, 0px)',
+              transition: 'transform 0s'
+            }
+          });
+
+          event.preventDefault();
+        }
+
+        if (direction === VERTICAL) {
+          this.setState({
+            direction: direction,
+            swipePosition: { x: 0, y: 0 },
+            menuExtraStyle: {}
+          });
+        }
       }
     }
   }, {
@@ -81,6 +114,7 @@ var CheeseburgerMenu = function (_Component) {
       }
       this.setState({
         swiping: false,
+        direction: IDLE,
         swipePosition: { x: 0, y: 0 },
         menuExtraStyle: {}
       });
