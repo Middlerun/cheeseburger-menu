@@ -27,7 +27,7 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeStart(event) {
+  onSwipeStart = (event) => {
     if (this.props.isOpen) {
       this.setState({
         swiping: true,
@@ -35,12 +35,12 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeMove(position, event) {
+  onSwipeMove = (position, event) => {
     if (this.state.swiping) {
       let direction = this.state.direction
 
       if (direction === IDLE) {
-        const swipeThreshold = this.options.width / 15
+        const swipeThreshold = this.getOptions().width / 15
         const pastThreshold = (
           (Math.abs(position.x) > swipeThreshold) ||
           (Math.abs(position.y) > swipeThreshold)
@@ -75,7 +75,7 @@ class CheeseburgerMenu extends Component {
           swipePosition: position,
           menuExtraStyle: {
             transform: `translate3d(${translateX}px, 0px, 0px)`,
-            transition: 'transform 0s'
+            transition: 'transform 0s',
           },
         })
 
@@ -92,8 +92,8 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeEnd(event) {
-    const swipeCloseThreshold = this.options.width / 3
+  onSwipeEnd = (event) => {
+    const swipeCloseThreshold = this.getOptions().width / 3
     if (
       (!this.props.right && this.state.swipePosition.x < -swipeCloseThreshold) ||
       ( this.props.right && this.state.swipePosition.x >  swipeCloseThreshold)
@@ -104,40 +104,48 @@ class CheeseburgerMenu extends Component {
       swiping: false,
       direction: IDLE,
       swipePosition: {x: 0, y: 0},
-      menuExtraStyle: {}
+      menuExtraStyle: {},
     })
   }
 
-  componentWillMount() {
-    this.options = {
-      isLeft: (!this.props.right),
+  getOptions() {
+    return {
+      isLeft: !this.props.right,
       transitionTime: this.props.transitionTime || 0.3,
       topOffset: this.props.topOffset || 0,
       width: this.props.width || 300,
       backgroundColor: this.props.backgroundColor || 'white',
-      showShadow: (!this.props.noShadow)
+      showShadow: !this.props.noShadow,
     }
   }
 
   render() {
-    const baseMenuOuterStyle = (this.props.isOpen ? menuOuterActiveStyle(this.options) : menuOuterStyle(this.options))
+    const {
+      isOpen,
+      closeCallback,
+      children,
+    } = this.props
+
+    const options = this.getOptions()
+
+    const baseMenuOuterStyle = (isOpen ? menuOuterActiveStyle(options) : menuOuterStyle(options))
     const currentMenuOuterStyle = {...baseMenuOuterStyle, ...this.state.menuExtraStyle}
 
     return (
       <div className={"cheeseburger-menu" + (this.props.isOpen ? " open" : "")}>
         <div className="cheeseburger-menu-overlay"
-             style={this.props.isOpen ? overlayActiveStyle(this.options) : overlayStyle(this.options)}
-             onClick={this.props.closeCallback}/>
+             style={isOpen ? overlayActiveStyle(options) : overlayStyle(options)}
+             onClick={closeCallback}/>
 
-        <Swipe onSwipeStart={this.onSwipeStart.bind(this)}
-               onSwipeMove={this.onSwipeMove.bind(this)}
-               onSwipeEnd={this.onSwipeEnd.bind(this)}>
+        <Swipe onSwipeStart={this.onSwipeStart}
+               onSwipeMove={this.onSwipeMove}
+               onSwipeEnd={this.onSwipeEnd}>
           <div className="cheeseburger-menu-outer" style={currentMenuOuterStyle}>
-            <div className="cheeseburger-menu-inner" style={menuInnerStyle(this.options)}>
-              {this.props.children}
+            <div className="cheeseburger-menu-inner" style={menuInnerStyle(options)}>
+              {children}
             </div>
             <div className="cheeseburger-menu-shadow"
-                 style={this.props.isOpen ? menuShadowActiveStyle(this.options) : menuShadowStyle(this.options)}/>
+                 style={isOpen ? menuShadowActiveStyle(options) : menuShadowStyle(options)}/>
           </div>
         </Swipe>
       </div>

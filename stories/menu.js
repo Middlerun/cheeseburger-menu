@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import CheeseburgerMenu from '../index'
+import CheeseburgerMenu from '../src/index'
 
 class MenuContainer extends Component {
   constructor(props) {

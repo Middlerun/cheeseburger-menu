@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import CheeseburgerMenu from '../index'
+import CheeseburgerMenu from '../src/index'
 import MenuContainer from './menu'
 
 import { Welcome } from '@storybook/react/demo';
