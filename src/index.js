@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Swipe from 'react-easy-swipe'
 
@@ -9,7 +9,7 @@ import {
   menuOuterActiveStyle,
   menuShadowStyle,
   menuShadowActiveStyle,
-  menuInnerStyle
+  menuInnerStyle,
 } from './styles'
 
 const IDLE = 'idle'
@@ -22,12 +22,16 @@ class CheeseburgerMenu extends Component {
     this.state = {
       swiping: false,
       direction: IDLE,
-      swipePosition: {x: 0, y: 0},
+      swipePosition: { x: 0, y: 0 },
       menuExtraStyle: {},
     }
+
+    this.onSwipeStart = this.onSwipeStart.bind(this)
+    this.onSwipeMove = this.onSwipeMove.bind(this)
+    this.onSwipeEnd = this.onSwipeEnd.bind(this)
   }
 
-  onSwipeStart = (event) => {
+  onSwipeStart(event) {
     if (this.props.isOpen) {
       this.setState({
         swiping: true,
@@ -35,7 +39,7 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeMove = (position, event) => {
+  onSwipeMove(position, event) {
     if (this.state.swiping) {
       let direction = this.state.direction
 
@@ -92,18 +96,18 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeEnd = (event) => {
+  onSwipeEnd(event) {
     const swipeCloseThreshold = this.getOptions().width / 3
     if (
       (!this.props.right && this.state.swipePosition.x < -swipeCloseThreshold) ||
-      ( this.props.right && this.state.swipePosition.x >  swipeCloseThreshold)
+      (this.props.right && this.state.swipePosition.x > swipeCloseThreshold)
     ) {
       this.props.closeCallback()
     }
     this.setState({
       swiping: false,
       direction: IDLE,
-      swipePosition: {x: 0, y: 0},
+      swipePosition: { x: 0, y: 0 },
       menuExtraStyle: {},
     })
   }
@@ -129,23 +133,29 @@ class CheeseburgerMenu extends Component {
     const options = this.getOptions()
 
     const baseMenuOuterStyle = (isOpen ? menuOuterActiveStyle(options) : menuOuterStyle(options))
-    const currentMenuOuterStyle = {...baseMenuOuterStyle, ...this.state.menuExtraStyle}
+    const currentMenuOuterStyle = { ...baseMenuOuterStyle, ...this.state.menuExtraStyle }
 
     return (
-      <div className={"cheeseburger-menu" + (this.props.isOpen ? " open" : "")}>
-        <div className="cheeseburger-menu-overlay"
-             style={isOpen ? overlayActiveStyle(options) : overlayStyle(options)}
-             onClick={closeCallback}/>
+      <div className={'cheeseburger-menu' + (this.props.isOpen ? ' open' : '')}>
+        <div
+          className="cheeseburger-menu-overlay"
+          style={isOpen ? overlayActiveStyle(options) : overlayStyle(options)}
+          onClick={closeCallback}
+        />
 
-        <Swipe onSwipeStart={this.onSwipeStart}
-               onSwipeMove={this.onSwipeMove}
-               onSwipeEnd={this.onSwipeEnd}>
+        <Swipe
+          onSwipeStart={this.onSwipeStart}
+          onSwipeMove={this.onSwipeMove}
+          onSwipeEnd={this.onSwipeEnd}
+        >
           <div className="cheeseburger-menu-outer" style={currentMenuOuterStyle}>
             <div className="cheeseburger-menu-inner" style={menuInnerStyle(options)}>
               {children}
             </div>
-            <div className="cheeseburger-menu-shadow"
-                 style={isOpen ? menuShadowActiveStyle(options) : menuShadowStyle(options)}/>
+            <div
+              className="cheeseburger-menu-shadow"
+              style={isOpen ? menuShadowActiveStyle(options) : menuShadowStyle(options)}
+            />
           </div>
         </Swipe>
       </div>
@@ -161,7 +171,8 @@ CheeseburgerMenu.propTypes = {
   topOffset: PropTypes.number,
   width: PropTypes.number,
   backgroundColor: PropTypes.string,
-  noShadow: PropTypes.bool
+  noShadow: PropTypes.bool,
+  children: PropTypes.node,
 }
 
 export default CheeseburgerMenu

@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactShallowRenderer from 'react-test-renderer/shallow'
 
-const renderer = new ReactShallowRenderer()
+import CheeseburgerMenu from '../src/index'
 
-import CheeseburgerMenu from './index'
+const renderer = new ReactShallowRenderer()
 
 const emptyFunc = () => null
 
