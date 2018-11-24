@@ -47,7 +47,7 @@ class CheeseburgerMenu extends Component {
       let direction = this.state.direction
 
       if (direction === IDLE) {
-        const swipeThreshold = this.options.width / 15
+        const swipeThreshold = options.width / 15
         const pastThreshold = (
           (Math.abs(position.x) > swipeThreshold) ||
           (Math.abs(position.y) > swipeThreshold)
