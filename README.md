@@ -33,14 +33,17 @@ import CheeseburgerMenu from 'cheeseburger-menu'
 
 ## Optional props
 
-| name            | type   | default | description |
-|-----------------|--------|---------|-------------|
-| right           | bool   | false   | If true, menu will slide in from the right (default is left) |
-| transitionTime  | number | 0.3     | Slide in/out duration in seconds |
-| topOffset       | number | 0       | Distance between the top of the viewport and the top of the menu (if you want the menu to appear beneath your header) |
-| width           | number | 300     | Menu width in pixels |
-| backgroundColor | string | white   | Background color for the menu |
-| noShadow        | bool   | false   | If true, there will be no shadow at the edge of the menu | 
+| name              | type   | default   | description |
+|-------------------|--------|-----------|-------------|
+| `right`           | bool   | `false`   | If true, menu will slide in from the right (default is left) |
+| `transitionTime`  | number | `0.3`     | Slide in/out duration in seconds |
+| `topOffset`       | number or string | `0`       | Distance between the top of the viewport and the top of the menu (if you want the menu to appear beneath your header). Can be a number (of pixels) or any valid CSS length, e.g. '2em'. |
+| `bottomOffset`    | number or string | `0`       | Same as `topOffset` but for the bottom |
+| `width`           | number | `300`     | Menu width in pixels |
+| `backgroundColor` | string | `'white'` | Background color for the menu |
+| `noShadow`        | bool   | `false`   | If true, there will be no shadow at the edge of the menu |
+| `skewY`           | number | `0`       | Vertical skew in degrees |
+| `className`, `overlayClassName`, `outerClassName`, `innerClassName`, `shadowClassName` | string | `undefined` | Props for adding classes to the various elements |
 
 Additional custom styling can be done with CSS.
 
@@ -48,7 +51,7 @@ Additional custom styling can be done with CSS.
 
 ISC License
 
-Copyright (c) 2017, Eddie McLean
+Copyright (c) 2017-18, Eddie McLean
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above

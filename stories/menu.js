@@ -26,7 +26,7 @@ class MenuContainer extends Component {
 
   render() {
     return <div className="menu">
-      <CheeseburgerMenu isOpen={this.state.menuOpen} closeCallback={this.closeMenu.bind(this)}>
+      <CheeseburgerMenu isOpen={this.state.menuOpen} closeCallback={this.closeMenu.bind(this)} {...this.props.menuProps}>
         <div className="my-menu-content">
           <ul>
             {this.items.map(i => <li key={i}>

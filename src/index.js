@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Swipe from 'react-easy-swipe'
+import classnames from 'classnames'
 
 import {
   overlayStyle,
@@ -10,6 +11,7 @@ import {
   menuShadowStyle,
   menuShadowActiveStyle,
   menuInnerStyle,
+  getSkew,
 } from './styles'
 
 const IDLE = 'idle'
@@ -41,10 +43,11 @@ class CheeseburgerMenu extends Component {
 
   onSwipeMove(position, event) {
     if (this.state.swiping) {
+      const options = this.getOptions()
       let direction = this.state.direction
 
       if (direction === IDLE) {
-        const swipeThreshold = this.getOptions().width / 15
+        const swipeThreshold = this.options.width / 15
         const pastThreshold = (
           (Math.abs(position.x) > swipeThreshold) ||
           (Math.abs(position.y) > swipeThreshold)
@@ -78,7 +81,7 @@ class CheeseburgerMenu extends Component {
           direction,
           swipePosition: position,
           menuExtraStyle: {
-            transform: `translate3d(${translateX}px, 0px, 0px)`,
+            transform: getSkew(options) + `translate3d(${translateX}px, 0px, 0px)`,
             transition: 'transform 0s',
           },
         })
@@ -89,7 +92,7 @@ class CheeseburgerMenu extends Component {
       if (direction === VERTICAL) {
         this.setState({
           direction,
-          swipePosition: {x: 0, y: 0},
+          swipePosition: { x: 0, y: 0 },
           menuExtraStyle: {},
         })
       }
@@ -117,9 +120,11 @@ class CheeseburgerMenu extends Component {
       isLeft: !this.props.right,
       transitionTime: this.props.transitionTime || 0.3,
       topOffset: this.props.topOffset || 0,
+      bottomOffset: this.props.bottomOffset || 0,
       width: this.props.width || 300,
       backgroundColor: this.props.backgroundColor || 'white',
       showShadow: !this.props.noShadow,
+      skewY: this.props.skewY,
     }
   }
 
@@ -127,6 +132,11 @@ class CheeseburgerMenu extends Component {
     const {
       isOpen,
       closeCallback,
+      className,
+      overlayClassName,
+      outerClassName,
+      innerClassName,
+      shadowClassName,
       children,
     } = this.props
 
@@ -136,9 +146,15 @@ class CheeseburgerMenu extends Component {
     const currentMenuOuterStyle = { ...baseMenuOuterStyle, ...this.state.menuExtraStyle }
 
     return (
-      <div className={'cheeseburger-menu' + (this.props.isOpen ? ' open' : '')}>
+      <div
+        className={classnames(
+          'cheeseburger-menu',
+          className,
+          { open: isOpen }
+        )}
+      >
         <div
-          className="cheeseburger-menu-overlay"
+          className={classnames('cheeseburger-menu-overlay', overlayClassName)}
           style={isOpen ? overlayActiveStyle(options) : overlayStyle(options)}
           onClick={closeCallback}
         />
@@ -148,12 +164,12 @@ class CheeseburgerMenu extends Component {
           onSwipeMove={this.onSwipeMove}
           onSwipeEnd={this.onSwipeEnd}
         >
-          <div className="cheeseburger-menu-outer" style={currentMenuOuterStyle}>
-            <div className="cheeseburger-menu-inner" style={menuInnerStyle(options)}>
+          <div className={classnames('cheeseburger-menu-outer', outerClassName)} style={currentMenuOuterStyle}>
+            <div className={classnames('cheeseburger-menu-inner', innerClassName)} style={menuInnerStyle(options)}>
               {children}
             </div>
             <div
-              className="cheeseburger-menu-shadow"
+              className={classnames('cheeseburger-menu-shadow', shadowClassName)}
               style={isOpen ? menuShadowActiveStyle(options) : menuShadowStyle(options)}
             />
           </div>
@@ -168,10 +184,17 @@ CheeseburgerMenu.propTypes = {
   closeCallback: PropTypes.func.isRequired,
   right: PropTypes.bool,
   transitionTime: PropTypes.number,
-  topOffset: PropTypes.number,
+  topOffset: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  bottomOffset: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   width: PropTypes.number,
   backgroundColor: PropTypes.string,
+  skewY: PropTypes.number,
   noShadow: PropTypes.bool,
+  className: PropTypes.string,
+  overlayClassName: PropTypes.string,
+  outerClassName: PropTypes.string,
+  innerClassName: PropTypes.string,
+  shadowClassName: PropTypes.string,
   children: PropTypes.node,
 }
 

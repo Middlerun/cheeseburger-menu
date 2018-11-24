@@ -1,42 +1,44 @@
-const overlayStyle = (options) => ({
+export const overlayStyle = (options) => ({
   position: 'fixed',
   top: options.topOffset,
+  bottom: options.bottomOffset,
+  left: 0,
+  right: 0,
   zIndex: 1001,
-  width: '100%',
-  height: '100%',
   background: 'rgba(0, 0, 0, 0.3)',
   opacity: 0,
   transition: `opacity ${options.transitionTime}s, transform 0s ${options.transitionTime}s`,
-  transform: (options.isLeft ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)'),
+  transform: `translate3d(${options.isLeft ? '' : '-'}100%, 0px, 0px)`,
 })
 
-const overlayActiveStyle = (options) => ({
+export const overlayActiveStyle = (options) => ({
   ...overlayStyle(options),
   opacity: 1,
   transition: `opacity ${options.transitionTime}s`,
   transform: 'none',
 })
 
-const menuOuterStyle = (options) => ({
+export const menuOuterStyle = (options) => ({
   position: 'fixed',
   left: (options.isLeft ? 0 : 'inherit'),
   right: (options.isLeft ? 'inherit' : 0),
   top: options.topOffset,
+  bottom: options.bottomOffset,
   zIndex: 1002,
   width: options.width,
   maxWidth: '80%',
-  height: '100%',
   transition: `transform ${options.transitionTime}s`,
-  transform: (options.isLeft ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)'),
+  transform: getSkew(options) + `translate3d(${options.isLeft ? '-' : ''}100%, 0px, 0px)`,
+  transformOrigin: 'left',
   backgroundColor: options.backgroundColor,
 })
 
-const menuOuterActiveStyle = (options) => ({
+export const menuOuterActiveStyle = (options) => ({
   ...menuOuterStyle(options),
-  transform: 'translate3d(0px, 0px, 0px)',
+  transform: getSkew(options) + 'translate3d(0px, 0px, 0px)',
 })
 
-const menuShadowStyle = (options) => ({
+export const menuShadowStyle = (options) => ({
   position: 'absolute',
   zIndex: -1,
   width: '100%',
@@ -50,15 +52,17 @@ const menuShadowStyle = (options) => ({
   right: 0,
 })
 
-const menuShadowActiveStyle = (options) => ({
+export const menuShadowActiveStyle = (options) => ({
   ...menuShadowStyle(options),
   opacity: 1,
 })
 
-const menuInnerStyle = (options) => ({
+export const menuInnerStyle = (options) => ({
   height: '100%',
   paddingBottom: options.topOffset,
   overflowY: 'auto',
 })
 
-export { overlayStyle, overlayActiveStyle, menuOuterStyle, menuOuterActiveStyle, menuShadowStyle, menuShadowActiveStyle, menuInnerStyle }
+export function getSkew(options) {
+  return options.skewY ? `skewY(${options.skewY}deg) ` : ''
+}
