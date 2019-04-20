@@ -61,6 +61,7 @@ export const menuInnerStyle = (options) => ({
   height: '100%',
   paddingBottom: options.topOffset,
   overflowY: 'auto',
+  WebkitOverflowScrolling: 'touch',
 })
 
 export function getSkew(options) {
