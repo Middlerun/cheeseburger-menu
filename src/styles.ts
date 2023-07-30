@@ -1,4 +1,17 @@
-export const overlayStyle = (options) => ({
+import type React from 'react'
+
+export interface StyleOptions {
+  isLeft: boolean,
+  transitionTime: number,
+  topOffset: number | string,
+  bottomOffset: number | string,
+  width: number,
+  backgroundColor: string,
+  showShadow: boolean,
+  skewY: number,
+}
+
+export const overlayStyle = (options: StyleOptions): React.CSSProperties => ({
   position: 'fixed',
   top: options.topOffset,
   bottom: options.bottomOffset,
@@ -11,14 +24,14 @@ export const overlayStyle = (options) => ({
   transform: `translate3d(${options.isLeft ? '' : '-'}100%, 0px, 0px)`,
 })
 
-export const overlayActiveStyle = (options) => ({
+export const overlayActiveStyle = (options: StyleOptions): React.CSSProperties => ({
   ...overlayStyle(options),
   opacity: 1,
   transition: `opacity ${options.transitionTime}s`,
   transform: 'none',
 })
 
-export const menuOuterStyle = (options) => ({
+export const menuOuterStyle = (options: StyleOptions): React.CSSProperties => ({
   position: 'fixed',
   left: (options.isLeft ? 0 : 'inherit'),
   right: (options.isLeft ? 'inherit' : 0),
@@ -33,12 +46,12 @@ export const menuOuterStyle = (options) => ({
   backgroundColor: options.backgroundColor,
 })
 
-export const menuOuterActiveStyle = (options) => ({
+export const menuOuterActiveStyle = (options: StyleOptions): React.CSSProperties => ({
   ...menuOuterStyle(options),
   transform: getSkew(options) + 'translate3d(0px, 0px, 0px)',
 })
 
-export const menuShadowStyle = (options) => ({
+export const menuShadowStyle = (options: StyleOptions): React.CSSProperties => ({
   position: 'absolute',
   zIndex: -1,
   width: '100%',
@@ -52,17 +65,17 @@ export const menuShadowStyle = (options) => ({
   right: 0,
 })
 
-export const menuShadowActiveStyle = (options) => ({
+export const menuShadowActiveStyle = (options: StyleOptions): React.CSSProperties => ({
   ...menuShadowStyle(options),
   opacity: 1,
 })
 
-export const menuInnerStyle = (options) => ({
+export const menuInnerStyle = (options: StyleOptions): React.CSSProperties => ({
   height: '100%',
   paddingBottom: options.topOffset,
   overflowY: 'auto',
 })
 
-export function getSkew(options) {
+export function getSkew(options: StyleOptions) {
   return options.skewY ? `skewY(${options.skewY}deg) ` : ''
 }

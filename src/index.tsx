@@ -1,8 +1,10 @@
+import type { CSSProperties } from 'react'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import type { SwipeEvent, SwipePosition } from 'react-easy-swipe'
 import Swipe from 'react-easy-swipe'
-import classnames from 'classnames'
+import clsx from 'clsx'
 
+import type { StyleOptions } from './styles'
 import {
   overlayStyle,
   overlayActiveStyle,
@@ -18,9 +20,35 @@ const IDLE = 'idle'
 const VERTICAL = 'vertical'
 const HORIZONTAL = 'horizontal'
 
-class CheeseburgerMenu extends Component {
-  constructor() {
-    super()
+interface Props {
+  isOpen: boolean,
+  closeCallback: () => void,
+  right?: boolean,
+  transitionTime?: number,
+  topOffset?: CSSProperties['top'],
+  bottomOffset?: CSSProperties['bottom'],
+  width?: number,
+  backgroundColor?: string,
+  skewY?: number,
+  noShadow?: boolean,
+  className?: string,
+  overlayClassName?: string,
+  outerClassName?: string,
+  innerClassName?: string,
+  shadowClassName?: string,
+  children: React.ReactNode,
+}
+
+interface State {
+  swiping: boolean,
+  direction: typeof IDLE | typeof VERTICAL | typeof HORIZONTAL,
+  swipePosition: SwipePosition,
+  menuExtraStyle: React.CSSProperties,
+}
+
+class CheeseburgerMenu extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
     this.state = {
       swiping: false,
       direction: IDLE,
@@ -33,7 +61,7 @@ class CheeseburgerMenu extends Component {
     this.onSwipeEnd = this.onSwipeEnd.bind(this)
   }
 
-  onSwipeStart(event) {
+  onSwipeStart() {
     if (this.props.isOpen) {
       this.setState({
         swiping: true,
@@ -41,7 +69,7 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeMove(position, event) {
+  onSwipeMove(position: SwipePosition, event: SwipeEvent) {
     if (this.state.swiping) {
       const options = this.getOptions()
       let direction = this.state.direction
@@ -57,7 +85,7 @@ class CheeseburgerMenu extends Component {
           if (
             (
               (!this.props.right && position.x < 0) ||
-              ( this.props.right && position.x > 0)
+              (this.props.right && position.x > 0)
             ) &&
             Math.abs(position.x) > Math.abs(position.y)
           ) {
@@ -72,7 +100,7 @@ class CheeseburgerMenu extends Component {
       if (direction === HORIZONTAL) {
         const swipeClosing = (
           (!this.props.right && position.x < 0) ||
-          ( this.props.right && position.x > 0)
+          (this.props.right && position.x > 0)
         )
 
         const translateX = (swipeClosing ? position.x : 0)
@@ -99,7 +127,7 @@ class CheeseburgerMenu extends Component {
     }
   }
 
-  onSwipeEnd(event) {
+  onSwipeEnd() {
     const swipeCloseThreshold = this.getOptions().width / 3
     if (
       (!this.props.right && this.state.swipePosition.x < -swipeCloseThreshold) ||
@@ -115,16 +143,16 @@ class CheeseburgerMenu extends Component {
     })
   }
 
-  getOptions() {
+  getOptions(): StyleOptions {
     return {
       isLeft: !this.props.right,
-      transitionTime: this.props.transitionTime || 0.3,
-      topOffset: this.props.topOffset || 0,
-      bottomOffset: this.props.bottomOffset || 0,
-      width: this.props.width || 300,
-      backgroundColor: this.props.backgroundColor || 'white',
+      transitionTime: this.props.transitionTime ?? 0.3,
+      topOffset: this.props.topOffset ?? 0,
+      bottomOffset: this.props.bottomOffset ?? 0,
+      width: this.props.width ?? 300,
+      backgroundColor: this.props.backgroundColor ?? 'white',
       showShadow: !this.props.noShadow,
-      skewY: this.props.skewY,
+      skewY: this.props.skewY ?? 0,
     }
   }
 
@@ -147,14 +175,14 @@ class CheeseburgerMenu extends Component {
 
     return (
       <div
-        className={classnames(
+        className={clsx(
           'cheeseburger-menu',
           className,
-          { open: isOpen }
+          { open: isOpen },
         )}
       >
         <div
-          className={classnames('cheeseburger-menu-overlay', overlayClassName)}
+          className={clsx('cheeseburger-menu-overlay', overlayClassName)}
           style={isOpen ? overlayActiveStyle(options) : overlayStyle(options)}
           onClick={closeCallback}
         />
@@ -164,12 +192,12 @@ class CheeseburgerMenu extends Component {
           onSwipeMove={this.onSwipeMove}
           onSwipeEnd={this.onSwipeEnd}
         >
-          <div className={classnames('cheeseburger-menu-outer', outerClassName)} style={currentMenuOuterStyle}>
-            <div className={classnames('cheeseburger-menu-inner', innerClassName)} style={menuInnerStyle(options)}>
+          <div className={clsx('cheeseburger-menu-outer', outerClassName)} style={currentMenuOuterStyle}>
+            <div className={clsx('cheeseburger-menu-inner', innerClassName)} style={menuInnerStyle(options)}>
               {children}
             </div>
             <div
-              className={classnames('cheeseburger-menu-shadow', shadowClassName)}
+              className={clsx('cheeseburger-menu-shadow', shadowClassName)}
               style={isOpen ? menuShadowActiveStyle(options) : menuShadowStyle(options)}
             />
           </div>
@@ -177,25 +205,6 @@ class CheeseburgerMenu extends Component {
       </div>
     )
   }
-}
-
-CheeseburgerMenu.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  closeCallback: PropTypes.func.isRequired,
-  right: PropTypes.bool,
-  transitionTime: PropTypes.number,
-  topOffset: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
-  bottomOffset: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
-  width: PropTypes.number,
-  backgroundColor: PropTypes.string,
-  skewY: PropTypes.number,
-  noShadow: PropTypes.bool,
-  className: PropTypes.string,
-  overlayClassName: PropTypes.string,
-  outerClassName: PropTypes.string,
-  innerClassName: PropTypes.string,
-  shadowClassName: PropTypes.string,
-  children: PropTypes.node,
 }
 
 export default CheeseburgerMenu
