@@ -90,8 +90,7 @@ class CheeseburgerMenu extends Component<Props, State> {
             Math.abs(position.x) > Math.abs(position.y)
           ) {
             direction = HORIZONTAL
-          }
-          else {
+          } else {
             direction = VERTICAL
           }
         }
