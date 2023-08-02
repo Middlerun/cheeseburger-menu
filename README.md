@@ -6,7 +6,7 @@ This component provides the sliding menu only, not the hamburger button. For you
 
 ## Demo
 
-https://codesandbox.io/s/qxL744Qx2
+https://codesandbox.io/s/cheeseburger-menu-demo-t7k5n2?file=/src/App.tsx
 
 ## Usage
 
