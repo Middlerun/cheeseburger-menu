@@ -21,11 +21,11 @@ import CheeseburgerMenu from 'cheeseburger-menu'
 
 ...
 
-<CheeseburgerMenu isOpen={this.state.menuIsOpen} closeCallback={this.closeMenu}>
+<CheeseburgerMenu isOpen={menuIsOpen} closeCallback={closeMenu}>
   <div className="my-menu-content">
     <ul>
-      <li><Link to="/thing1" onClick={this.closeMenu}>Menu item 1</Link></li>
-      <li><Link to="/thing2" onClick={this.closeMenu}>Menu item 2</Link></li>
+      <li><Link to="/thing1" onClick={closeMenu}>Menu item 1</Link></li>
+      <li><Link to="/thing2" onClick={closeMenu}>Menu item 2</Link></li>
     </ul>
   </div>
 </CheeseburgerMenu>
@@ -51,7 +51,7 @@ Additional custom styling can be done with CSS.
 
 ISC License
 
-Copyright (c) 2017-18, Eddie McLean
+Copyright (c) 2017-2023, Eddie McLean
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above

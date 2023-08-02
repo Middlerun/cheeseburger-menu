@@ -21,20 +21,39 @@ const VERTICAL = 'vertical'
 const HORIZONTAL = 'horizontal'
 
 interface Props {
+  /** Controls whether the menu is open */
   isOpen: boolean,
+  /** Callback that should cause the menu to close */
   closeCallback: () => void,
+  /** If true, menu will slide in from the right (default is left) */
   right?: boolean,
+  /** Slide in/out duration in seconds */
   transitionTime?: number,
+  /**
+   * Distance between the top of the viewport and the top of the menu
+   * (if you want the menu to appear beneath your header). Can be a
+   * number (of pixels) or any valid CSS length, e.g. '2em'.
+   */
   topOffset?: CSSProperties['top'],
+  /** Same as `topOffset` but for the bottom */
   bottomOffset?: CSSProperties['bottom'],
+  /** Menu width in pixels */
   width?: number,
-  backgroundColor?: string,
+  /** Background color for the menu */
+  backgroundColor?: CSSProperties['backgroundColor'],
+  /** Vertical skew in degrees */
   skewY?: number,
+  /** If true, there will be no shadow at the edge of the menu */
   noShadow?: boolean,
+  /** To add an extra class to the root element */
   className?: string,
+  /** To add an extra class to the overlay element */
   overlayClassName?: string,
+  /** To add an extra class to the outer slider element */
   outerClassName?: string,
+  /** To add an extra class to the inner slider element */
   innerClassName?: string,
+  /** To add an extra class to the shadow element */
   shadowClassName?: string,
   children: React.ReactNode,
 }
